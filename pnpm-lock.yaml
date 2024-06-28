@@ -33,9 +33,15 @@ importers:
       '@commercelayer/sdk':
         specifier: 6.6.0
         version: 6.6.0
+      '@commercelayer/sdk-utils':
+        specifier: ^1.6.4
+        version: 1.6.4(@commercelayer/sdk@6.6.0)
       '@hookform/resolvers':
         specifier: ^3.6.0
         version: 3.6.0(react-hook-form@7.51.5(react@18.3.1))
+      defu:
+        specifier: ^6.1.4
+        version: 6.1.4
       lodash:
         specifier: ^4.17.21
         version: 4.17.21
@@ -277,6 +283,12 @@ packages:
     peerDependencies:
       eslint: '>=8.0'
       typescript: '>=5.0'
+
+  '@commercelayer/sdk-utils@1.6.4':
+    resolution: {integrity: sha512-ebYLdSu/jrEpg1fPX9JDc/S6xyqipqW1FKoTf6w4hsELSG5Xd07Bya4taqyqG4zBbNoLLy4pFLxalYOEaWU0Rw==}
+    engines: {node: '>=16'}
+    peerDependencies:
+      '@commercelayer/sdk': ^5
 
   '@commercelayer/sdk@6.6.0':
     resolution: {integrity: sha512-i1bW7vqUJgTNLDJtyGzOXKu5MpdN1+nOOHxU9AOtMQfY47t/TrG3no/4vzeC1biAxJxh83ElOp+jHC7szohqtQ==}
@@ -1762,6 +1774,9 @@ packages:
   define-properties@1.2.1:
     resolution: {integrity: sha512-8QmQKqEASLd5nx0U1B1okLElbUuuttJ/AnYmRXbbbGDWh6uS208EjD4Xqq/I9wK7u0v6O08XhTWnt5XtEbR6Dg==}
     engines: {node: '>= 0.4'}
+
+  defu@6.1.4:
+    resolution: {integrity: sha512-mEQCMmwJu317oSz8CwdIOdwf3xMif1ttiM8LTufzc3g6kR+9Pe236twL8j3IYT1F7GfRgGcW6MWxzZjLIkuHIg==}
 
   delayed-stream@1.0.0:
     resolution: {integrity: sha512-ZySD7Nf91aLB0RxL4KGrKHBXl7Eds1DAmEdcoVawXnLD7SDhpNgtuII2aAkg7a7QS41jxPSZ17p4VdGnMHk3MQ==}
@@ -5169,6 +5184,10 @@ snapshots:
       - eslint-import-resolver-webpack
       - supports-color
 
+  '@commercelayer/sdk-utils@1.6.4(@commercelayer/sdk@6.6.0)':
+    dependencies:
+      '@commercelayer/sdk': 6.6.0
+
   '@commercelayer/sdk@6.6.0': {}
 
   '@emotion/babel-plugin@11.11.0':
@@ -6855,6 +6874,8 @@ snapshots:
       define-data-property: 1.1.1
       has-property-descriptors: 1.0.1
       object-keys: 1.1.1
+
+  defu@6.1.4: {}
 
   delayed-stream@1.0.0: {}
 
