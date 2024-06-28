@@ -9,6 +9,7 @@ import { type Promotions } from "#data/promotions";
 import { mapValues } from "#data/record";
 import { type CommerceLayerClient } from "@commercelayer/sdk";
 import { CommerceLayerUtils, retrieveAll } from "@commercelayer/sdk-utils";
+// @ts-expect-error not found types
 import type { ListableResourceType } from "@commercelayer/sdk/lib/cjs/api";
 import defu from "defu";
 import {
@@ -67,6 +68,7 @@ export const exportPromotions = async (
   );
 
   // Discard promotions that do not have relationships with necessary fields for identity.
+  // @ts-expect-error not found types
   const promotions = comparablePromotions.filter((promotion) =>
     areRelationshipsComparable(relationshipsById, promotion, log)
   );

@@ -56,12 +56,14 @@ export const importPromotions = async (
   log(Object.keys(relationshipsByCompareField).join(", "));
 
   // Discard promotions that do not have relationships with necessary fields for identity.
+  // @ts-expect-error not found types
   const promotions = comparablePromotions.filter((promotion) =>
     areRelationshipsComparable(relationshipsById, promotion, log)
   );
   log("Syncable promotions:", promotions.length);
 
   // Discard promotions that do not have relationships with equivalent entities.
+  // @ts-expect-error not found types
   const promotionsToSync = promotionsTest.filter((promotion) =>
     compare(relationshipsByIdTest, relationshipsByCompareField, promotion, log)
   );
@@ -70,6 +72,7 @@ export const importPromotions = async (
   // SYNC STEP (add and update)
   for (const promotion of promotionsToSync) {
     const prodPromotion = allPromotions.find(
+      // @ts-expect-error not found types
       (prodPromotion) =>
         prodPromotion[compareField.promotions] ===
         promotion[compareField.promotions]
@@ -119,9 +122,9 @@ const createRules = async (
   if (promotion.order_amount_promotion_rule) {
     const action = getAction(prodPromotion.order_amount_promotion_rule);
     log(`Order amount promotion rule ${action}...`);
-    // @ts-expect-error
     await clientProd.order_amount_promotion_rules[action]({
       ...getId(prodPromotion.order_amount_promotion_rule),
+      // @ts-expect-error too flexible for js
       ...pick(promotion.order_amount_promotion_rule, sharedRuleAttributes),
       order_amount_cents:
         promotion.order_amount_promotion_rule.order_amount_cents,
@@ -140,9 +143,9 @@ const createRules = async (
     const compareValue = testSkuList[compareField.sku_lists];
     const skuList = prodRelationshipsByCompareField[compareValue];
     log(`Sku list promotion rule ${action}...`);
-    // @ts-expect-error
     await clientProd.sku_list_promotion_rules[action]({
       ...getId(prodPromotion.sku_list_promotion_rule),
+      // @ts-expect-error too flexible for js
       ...pick(promotion.sku_list_promotion_rule, sharedRuleAttributes),
       all_skus: promotion.sku_list_promotion_rule.all_skus,
       min_quantity: promotion.sku_list_promotion_rule.min_quantity,
@@ -161,9 +164,9 @@ const createRules = async (
   if (promotion.coupon_codes_promotion_rule) {
     const action = getAction(prodPromotion.coupon_codes_promotion_rule);
     log(`Coupon codes promotion rule ${action}...`);
-    // @ts-expect-error
     await clientProd.coupon_codes_promotion_rules[action]({
       ...getId(prodPromotion.coupon_codes_promotion_rule),
+      // @ts-expect-error too flexible for js
       ...pick(promotion.coupon_codes_promotion_rule, sharedRuleAttributes),
       ...getPromotionRel(action, prodPromotion),
     });
@@ -194,9 +197,9 @@ const createRules = async (
         .map((rule) => [rule.predicate, rule.rawValues.join(",")])
     );
     log(`Custom promotion rule ${action}...`);
-    // @ts-expect-error
     await clientProd.custom_promotion_rules[action]({
       ...getId(prodPromotion.custom_promotion_rule),
+      // @ts-expect-error too flexible for js
       ...pick(promotion.custom_promotion_rule, sharedRuleAttributes),
       filters,
       ...getPromotionRel(action, prodPromotion),
@@ -240,7 +243,7 @@ const getSharedRelationships = (
       { field: "sku_list", type: "sku_lists" },
     ] as const
   ).reduce((relationships, { field, type }) => {
-    // @ts-expect-error
+    // @ts-expect-error too flexible for js
     const testRef = promotion[field]?.[compareField[type]];
     const prodRes = testRef && prodRelationshipsByCompareField[testRef];
     return prodRes
@@ -266,12 +269,12 @@ const createPromotion = async (
   const action = getAction(prodPromotion);
   log(`Promotion ${action}...`);
   prodPromotion = await clientProd[promotion.type][action](
-    // @ts-expect-error
     {
       ...getId(prodPromotion),
+      // @ts-expect-error too flexible for js
       ...pick(promotion, sharedPromotionAttributes),
       _disable: true,
-      // @ts-expect-error
+      // @ts-expect-error too flexible for js
       ...pick(promotion, attributesByPromotionType[promotion.type]),
       ...getSharedRelationships(promotion, prodRelationshipsByCompareField),
     },

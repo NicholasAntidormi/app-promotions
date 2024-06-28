@@ -10,5 +10,6 @@ export const pick = <T, K extends keyof T>(obj: T, keys: K[] | readonly K[]) =>
       ...picked,
       [key]: obj[key],
     }),
+    // @ts-expect-error too flexible for js
     {}
   );
