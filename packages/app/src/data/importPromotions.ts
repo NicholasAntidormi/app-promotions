@@ -18,7 +18,7 @@ import {
   query,
 } from "./shared";
 
-export const importPromotions = async (
+export const prepareImportPromotions = async (
   cl: CommerceLayerClient,
   promotionsTest: any,
   relationshipsByIdTest: any,
@@ -69,6 +69,22 @@ export const importPromotions = async (
   );
   log("Syncable promotions:", promotionsToSync.length);
 
+  return {
+    promotionsToSync,
+    allPromotions,
+    relationshipsByIdTest,
+    relationshipsByCompareField,
+  };
+};
+
+export const importPromotions = async (
+  cl: CommerceLayerClient,
+  promotionsToSync: any,
+  allPromotions: any,
+  relationshipsByIdTest: any,
+  relationshipsByCompareField: any,
+  log: (...args: any[]) => void
+) => {
   // SYNC STEP (add and update)
   for (const promotion of promotionsToSync) {
     const prodPromotion = allPromotions.find(
