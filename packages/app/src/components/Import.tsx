@@ -6,7 +6,9 @@ import {
 importPromotions,
 prepareImportPromotions,
 } from "#data/importPromotions";
+import { compareField } from "#data/shared";
 import {
+Badge,
 Button,
 InputCheckboxGroup,
 InputFeedback,
@@ -72,6 +74,12 @@ export function Import(): JSX.Element {
   const [isImporting, setIsImporting] = useState(false);
   const [importError, setImportError] = useState<string | null>(null);
   const [importLogs, setImportLogs] = useState<string[]>([]);
+
+  const isCreate = (allPromotions: any, promotion: any) => !allPromotions.some(
+      (prodPromotion: any) =>
+        prodPromotion[compareField.promotions] ===
+        promotion[compareField.promotions]
+    );
 
   const importPromotionsApp = async () => {
     if (!importValue || isImporting) {
@@ -149,7 +157,12 @@ export function Import(): JSX.Element {
             <InputCheckboxGroup
               onChange={setSelectedImportValue}
               options={importData.promotionsToSync.toSorted((p1: any, p2: any) => p2.updated_at - p1.updated_at).map((promotion: any) => ({
-                content: <ResourceListItem resource={promotion} />,
+                content: (<div style={{display: 'flex', alignItems: 'center'}}>
+                  <ResourceListItem resource={promotion} />
+                  <Badge variant={isCreate(importData.allPromotions, promotion) ? 'success-solid' : 'primary-solid'}>
+                    {isCreate(importData.allPromotions, promotion) ? 'create' : 'update'}
+                  </Badge>
+                </div>),
                 value: promotion.id,
               }))}
               title="Promotions"

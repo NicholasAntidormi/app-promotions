@@ -187,6 +187,7 @@ const createRules = async (
       ...getPromotionRel(action, prodPromotion),
     });
     if (action === "create") {
+      log(`Placeholder coupon create...`);
       await clientProd.coupons.create({
         code: "PLACEHOLDER_TO_NOT_ACTIVATE_PROMOTION",
         usage_limit: 1,
