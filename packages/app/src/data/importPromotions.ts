@@ -180,12 +180,26 @@ const createRules = async (
   if (promotion.coupon_codes_promotion_rule) {
     const action = getAction(prodPromotion.coupon_codes_promotion_rule);
     log(`Coupon codes promotion rule ${action}...`);
-    await clientProd.coupon_codes_promotion_rules[action]({
+    const rule = await clientProd.coupon_codes_promotion_rules[action]({
       ...getId(prodPromotion.coupon_codes_promotion_rule),
       // @ts-expect-error too flexible for js
       ...pick(promotion.coupon_codes_promotion_rule, sharedRuleAttributes),
       ...getPromotionRel(action, prodPromotion),
     });
+    if (action === "create") {
+      await clientProd.coupons.create({
+        code: "PLACEHOLDER_TO_NOT_ACTIVATE_PROMOTION",
+        usage_limit: 1,
+        expires_at: new Date(0).toISOString(),
+        recipient_email: "coupon@placeholder.com",
+        reference: "placeholder",
+        reference_origin: "app-sync-promotions",
+        promotion_rule: {
+          id: rule.id,
+          type: "coupon_codes_promotion_rules",
+        },
+      });
+    }
   } else if (prodPromotion.coupon_codes_promotion_rule) {
     log(`Coupon codes promotion rule delete...`);
     await clientProd.coupon_codes_promotion_rules.delete(
