@@ -116,11 +116,8 @@ export function Export(): JSX.Element {
         {exportData && (
           <Spacer top="14" style={{ maxHeight: "500px", overflow: "auto" }}>
             <InputCheckboxGroup
-              defaultValues={exportData.promotions.map((promotion: any) => ({
-                value: promotion.id,
-              }))}
               onChange={setSelectedPromotions}
-              options={exportData.promotions.map((promotion:any) => ({
+              options={exportData.promotions.toSorted((p1: any, p2: any) => p2.updated_at - p1.updated_at).map((promotion:any) => ({
                 content: <ResourceListItem resource={promotion} />,
                 value: promotion.id,
               }))}
