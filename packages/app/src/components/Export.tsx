@@ -67,7 +67,7 @@ export function Export(): JSX.Element {
     try {
       const selectedData = {
         ...exportData,
-        promotions: exportData.promotions.filter((promotion) =>
+        promotions: exportData.promotions.filter((promotion: any) =>
           selectedPromotions.some(
             (selectedPromotion) => promotion.id === selectedPromotion.value
           )
@@ -116,11 +116,11 @@ export function Export(): JSX.Element {
         {exportData && (
           <Spacer top="14" style={{ maxHeight: "500px", overflow: "auto" }}>
             <InputCheckboxGroup
-              defaultValues={exportData.promotions.map((promotion) => ({
+              defaultValues={exportData.promotions.map((promotion: any) => ({
                 value: promotion.id,
               }))}
               onChange={setSelectedPromotions}
-              options={exportData.promotions.map((promotion) => ({
+              options={exportData.promotions.map((promotion:any) => ({
                 content: <ResourceListItem resource={promotion} />,
                 value: promotion.id,
               }))}

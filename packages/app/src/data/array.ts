@@ -6,7 +6,8 @@ export const indexBy = <Item, Key extends PropertyKey>(
 ) =>
   items.reduce<Partial<Record<Key, Item>>>((indexed, item) => {
     const key = keyFn(item);
-    if (indexed[key] !== undefined) throw new Error(`Duplicated key ${key}`);
+    if (indexed[key] !== undefined)
+      throw new Error(`Duplicated key ${String(key)}`);
     return {
       ...indexed,
       [key]: item,

@@ -80,8 +80,8 @@ export function Import(): JSX.Element {
     setImportError(null);
     setIsImporting(true);
     try {
-      const promotionsToSync = importData.promotionsToSync.filter((promotion) =>
-        selectedImportValue.some((selected) => selected.value === promotion.id)
+      const promotionsToSync = importData.promotionsToSync.filter((promotion: any) =>
+        selectedImportValue.some((selected: any) => selected.value === promotion.id)
       );
       await importPromotions(
         sdkClient,
@@ -147,11 +147,11 @@ export function Import(): JSX.Element {
         {importData && (
           <Spacer top="14" style={{ maxHeight: "500px", overflow: "auto" }}>
             <InputCheckboxGroup
-              defaultValues={importData.promotionsToSync.map((promotion) => ({
+              defaultValues={importData.promotionsToSync.map((promotion: any) => ({
                 value: promotion.id,
               }))}
               onChange={setSelectedImportValue}
-              options={importData.promotionsToSync.map((promotion) => ({
+              options={importData.promotionsToSync.map((promotion: any) => ({
                 content: <ResourceListItem resource={promotion} />,
                 value: promotion.id,
               }))}
