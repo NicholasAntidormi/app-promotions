@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unsafe-argument */
 /* eslint-disable prettier/prettier */
 /* eslint-disable @typescript-eslint/strict-boolean-expressions */
 /* eslint-disable @typescript-eslint/explicit-function-return-type */
@@ -156,7 +157,8 @@ export function Import(): JSX.Element {
           <Spacer top="14" style={{ maxHeight: "500px", overflow: "auto" }}>
             <InputCheckboxGroup
               onChange={setSelectedImportValue}
-              options={importData.promotionsToSync.toSorted((p1: any, p2: any) => p2.updated_at - p1.updated_at).map((promotion: any) => ({
+              // @ts-expect-error ts not flexible
+              options={importData.promotionsToSync.toSorted((p1: any, p2: any) => new Date(p2.updated_at) - new Date(p1.updated_at)).map((promotion: any) => ({
                 content: (<div style={{display: 'flex', alignItems: 'center'}}>
                   <ResourceListItem resource={promotion} />
                   <Badge variant={isCreate(importData.allPromotions, promotion) ? 'success-solid' : 'primary-solid'}>

@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unsafe-argument */
 /* eslint-disable prettier/prettier */
 /* eslint-disable @typescript-eslint/strict-boolean-expressions */
 /* eslint-disable @typescript-eslint/explicit-function-return-type */
@@ -117,7 +118,8 @@ export function Export(): JSX.Element {
           <Spacer top="14" style={{ maxHeight: "500px", overflow: "auto" }}>
             <InputCheckboxGroup
               onChange={setSelectedPromotions}
-              options={exportData.promotions.toSorted((p1: any, p2: any) => p2.updated_at - p1.updated_at).map((promotion:any) => ({
+              // @ts-expect-error ts not flexible
+              options={exportData.promotions.toSorted((p1: any, p2: any) => new Date(p2.updated_at) - new Date(p1.updated_at)).map((promotion:any) => ({
                 content: <ResourceListItem resource={promotion} />,
                 value: promotion.id,
               }))}
