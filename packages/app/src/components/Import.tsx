@@ -148,7 +148,7 @@ export function Import(): JSX.Element {
           <Spacer top="14" style={{ maxHeight: "500px", overflow: "auto" }}>
             <InputCheckboxGroup
               onChange={setSelectedImportValue}
-              options={importData.promotionsToSync.toSorted((p1: any, p2: any) => p1.updated_at - p2.updated_at).map((promotion: any) => ({
+              options={importData.promotionsToSync.toSorted((p1: any, p2: any) => p2.updated_at - p1.updated_at).map((promotion: any) => ({
                 content: <ResourceListItem resource={promotion} />,
                 value: promotion.id,
               }))}
