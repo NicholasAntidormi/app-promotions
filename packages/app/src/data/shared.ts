@@ -2,10 +2,10 @@ import { indexBy } from "#data/array";
 import { getCustomPromotionRelationships } from "#data/customPromotions";
 import { type Promotions } from "#data/promotions";
 
-export const indexById = <Item extends { id?: string | null }>(
+export const groupById = <Item extends { id?: string | null }>(
   items: Array<Item | null | undefined>
 ) =>
-  indexBy(
+  Object.groupBy(
     items.filter((item): item is NonNullable<typeof item> => !!item?.id),
     (item) => item.id!
   );

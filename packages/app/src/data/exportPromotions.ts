@@ -14,8 +14,8 @@ import type { ListableResourceType } from "@commercelayer/sdk/lib/cjs/api";
 import defu from "defu";
 import {
   areRelationshipsComparable,
+  groupById,
   indexByCompareField,
-  indexById,
   isComparable,
   query,
 } from "./shared";
@@ -113,14 +113,14 @@ const getRelationships = async (
       },
     });
     log(`${resourceName}:`, resources.length);
-    Object.assign(relationships, indexById(resources));
+    Object.assign(relationships, groupById(resources));
   }
 
   return relationships;
 };
 
 const getPromoRelationshipsById = (promotion: Promotions) =>
-  indexById([
+  groupById([
     promotion.market,
     promotion.sku_list,
     promotion.sku_list_promotion_rule?.sku_list,
