@@ -27,7 +27,7 @@ function SyncHomePage(): JSX.Element {
       <TableData data={compareTableData} />
       <Spacer bottom="8" />
       <Hint icon="info">
-        While creating a coupons promotion, an expired "placehlder" coupon will be created to not apply the promotion to all orders
+        While creating a coupons promotion, an expired "placeholder" coupon will be created to not apply the promotion to all orders
       </Hint>
       <Spacer bottom="12" />
       <Tabs
