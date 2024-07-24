@@ -2,12 +2,13 @@ import { indexBy } from "#data/array";
 import { getCustomPromotionRelationships } from "#data/customPromotions";
 import { type Promotions } from "#data/promotions";
 
-export const groupById = <Item extends { id?: string | null }>(
+export const indexById = <Item extends { id?: string | null }>(
   items: Array<Item | null | undefined>
 ) =>
-  Object.groupBy(
+  indexBy(
     items.filter((item): item is NonNullable<typeof item> => !!item?.id),
-    (item) => item.id!
+    (item) => item.id!,
+    true
   );
 
 export const compareField = {

@@ -14,8 +14,8 @@ import type { ListableResourceType } from "@commercelayer/sdk/lib/cjs/api";
 import defu from "defu";
 import {
   areRelationshipsComparable,
-  groupById,
   indexByCompareField,
+  indexById,
   isComparable,
   query,
 } from "./shared";
@@ -57,7 +57,6 @@ export const exportPromotions = async (
   );
 
   const relationshipsByCompareField = indexByCompareField(
-    // @ts-expect-error why is partial???
     Object.values(relationshipsById)
   );
   log(`Relationships:`, Object.keys(relationshipsById).length);
@@ -114,14 +113,14 @@ const getRelationships = async (
       },
     });
     log(`${resourceName}:`, resources.length);
-    Object.assign(relationships, groupById(resources));
+    Object.assign(relationships, indexById(resources));
   }
 
   return relationships;
 };
 
 const getPromoRelationshipsById = (promotion: Promotions) =>
-  groupById([
+  indexById([
     promotion.market,
     promotion.sku_list,
     promotion.sku_list_promotion_rule?.sku_list,
