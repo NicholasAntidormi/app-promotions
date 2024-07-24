@@ -57,6 +57,7 @@ export const exportPromotions = async (
   );
 
   const relationshipsByCompareField = indexByCompareField(
+    // @ts-expect-error why is partial???
     Object.values(relationshipsById)
   );
   log(`Relationships:`, Object.keys(relationshipsById).length);
