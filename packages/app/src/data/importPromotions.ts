@@ -12,8 +12,8 @@ import {
   areRelationshipsComparable,
   compare,
   compareField,
+  groupById,
   indexByCompareField,
-  indexById,
   isComparable,
   query,
 } from "./shared";
@@ -45,7 +45,7 @@ export const prepareImportPromotions = async (
     log(`${relationshipsType}:`, relationshipsByType[relationshipsType].length);
   }
 
-  const relationshipsById = indexById(
+  const relationshipsById = groupById(
     Object.values(relationshipsByType).flat()
   );
   const relationshipsByCompareField = indexByCompareField(
