@@ -22,6 +22,27 @@ function SyncHomePage(): JSX.Element {
 
   return (
     <PageLayout title="Sync Promotions" mode={mode}>
+      <details>
+        <summary>Examples</summary>
+          <Spacer bottom="4" />
+
+          <p>Export</p>
+          <Spacer bottom="4" />
+          <video
+            controls
+            src="/promo_export.mp4"
+          />
+          <Spacer bottom="8" />
+
+          <p>Import</p>
+          <Spacer bottom="4" />
+          <video
+            controls
+            src="/promo_import.mp4"
+          />
+      </details>
+      <Spacer bottom="12" />
+
       <p>These are the fields used to identify and compare test/live resources.</p>
       <Spacer bottom="4" />
       <TableData data={compareTableData} />
